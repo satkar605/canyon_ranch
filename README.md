@@ -1,80 +1,71 @@
-# canyon_ranch
+# 🏨 Canyon Ranch Database Project
 
+This project designs and deploys a centralized relational database system for **Canyon Ranch**, a wellness resort, to improve reservation handling, staff coordination, and customer experience. It follows a structured development process across three milestones and includes both relational and data warehouse models.
 
-Entity Descriptions & Attributes
+---
 
-This document outlines the written requirements derived from the finalized Entity-Relationship (ER) diagram designed for Canyon Ranch, a wellness resort.
-1. Customer
-Captures guest-specific data essential for personalized experiences and communication.
-•	CustomerID: Unique identifier
-•	CustFName, CustLName, CustMName: Guest’s full name components
-•	CustomerEmail, CustomerPhone, CustomerAddress: Contact details
-•	Gender, DateOfBirth, Age (Derived): Demographics
-•	Preferences: Preferences regarding room, spa, food, etc.
-•	MedicalHistory: Nested attribute with Condition and Notes
-•	ReferralCount: How many other guests they referred
-•	VisitCount: Number of visits
-2. Reservation
-Handles room and service bookings.
-•	ReservationID: Unique booking ID
-•	ReservationDate: Booking creation date
-•	CheckInDate, CheckOutDate: Duration of stay
-•	ReservationType: Package type or guest type
-•	SpecialRequests: Guest-specific needs
-•	NoOfGuests: Total people under this reservation
-•	Status: Active, Cancelled, Completed
-3. Reservation_Service (Associative Entity)
-Connects services with reservations.
-•	ReservationServiceID: Unique ID
-•	ServiceDate, TimeSlot: When service occurs
-•	Status, Notes: Execution notes/status
-•	Price: Final price after discount
-•	StaffID: Who provided the service
-4. Service
-Defines service offerings like spa, fitness, etc.
-•	ServiceID: Unique ID
-•	ServiceName, ServiceType: Type and name
-•	Description, Duration, Price, Capacity
-5. Staff
-Service personnel.
-•	StaffID, StaffFName, StaffLName, StaffMName
-•	StaffRole, Specialty, Availability
-6. Program Coordinator
-Acts as the key contact for guests.
-•	PCID, PCFName, PCLName, PCMName
-•	PCEmail, PCPhone, AssignedReservations, ShiftSchedule
-7. Facility
-Represents one of the five locations.
-•	FacilityID, FacilityName, FacilityType, Address, Phone
-•	ServiceAvailability, OperatingHours
-8. Room
-Represents guest accommodations.
-•	RoomID, FacilityID, RoomType, RoomRate, Capacity, RoomStatus, Amenities
-9. LoyaltyProgram
-Captures loyalty tiers.
-•	LoyaltyID, MembershipLevel, ExpiryDate, RewardPoints
-10. Payment
-Handles monetary transactions.
-•	PaymentID, Amount, PaymentMethod, PaymentDate, PaymentStatus, Discount (Optional)
-11. Feedback
-Captures guest input post-reservation.
-•	FeedbackID, FeedbackDate, Review, Rating
-12. ReferralSource (Associative Entity)
-Tracks how a customer was referred.
-•	ReferralSourceID, ReferrerType (Customer, Affiliate, Website)
-13. Affiliate
-Third-party referring agents.
-•	AffiliateID, AffiliateName, AffiliateContact, ReferralCount
+## 🔧 Tech Stack
 
-Key Business Relationships & Logic
-•	Customer ↔ Reservation: A customer can make multiple reservations.
-•	Reservation ↔ Reservation_Service ↔ Service: Each reservation can include multiple services, delivered at specific time slots.
-•	Reservation ↔ Feedback: One-to-one; each reservation optionally leads to feedback.
-•	Reservation ↔ Payment: One-to-one; each reservation must have a payment record.
-•	Reservation ↔ Program Coordinator: One coordinator manages many reservations.
-•	Staff ↔ Reservation_Service: Staff are assigned to deliver specific booked services.
-•	Service ↔ Staff: Tracks which staff are qualified to offer which services.
-•	Facility ↔ Room / Staff / Program Coordinator / Service: All these are specific to one facility.
-•	Customer ↔ ReferralSource ↔ Affiliate or Customer: Tracks who referred a new guest and how.
+- **MS SQL Server** (database engine)
+- **Cursor IDE** (code editing)
+- **ERDPlus** (diagramming tool)
+- **Markdown + Word** (documentation)
+- **GPT-4** (sample data generation)
 
-![image](https://github.com/user-attachments/assets/42ddc760-69f4-41eb-9852-64c55bf3730f)
+---
+
+## 📂 Project Structure
+
+```
+canyon-ranch-db/
+├── sql/                      # SQL scripts
+│   ├── create_schema.sql     # Database schema creation script
+│   ├── insert_sample_data.sql # Sample data population script
+│   └── test_queries.sql      # Validation queries
+│
+├── docs/                     # Documentation
+│   ├── entity_description.md # Entity details and attributes
+│   ├── functional_dependencies.md # Functional dependencies documentation
+│   ├── sql_schema_design.md  # SQL schema design decisions
+│   ├── cloud_db_setup_notes.md # Cloud deployment guidelines
+│   ├── Milestone1Report.docx # First milestone report
+│   └── TeamProjectInstructions.docx # Project instructions
+│
+├── diagrams/                 # Visual representations
+│   ├── er_diagram.png        # Entity-Relationship diagram
+│   └── relational_schema.png # Relational schema diagram
+│
+├── backup/                   # Database backups
+│   └── canyon_ranch_YYYYMMDD.bak # SQL Server backup file
+│
+├── workflow.md               # Project tracker with task status
+├── iteration_log.md          # Log of all project updates
+└── README.md                 # Project overview and instructions
+```
+
+---
+
+## 🚀 How to Run
+
+1. Open the project in **Cursor IDE**.
+2. Run `create_tables.sql` in your SQL Server instance to create all tables.
+3. Load mock data using `insert_sample_data.sql`.
+4. Use `test_queries.sql` to validate table joins and foreign key integrity.
+5. Generate backup file `.bak` using SQL Server Management Studio.
+
+---
+
+## 📌 Project Status
+
+See `workflow.md` for detailed task tracking and milestone progress.
+
+---
+
+## 🧠 Authors
+
+- Satkar Karki  
+- Riti Dahal  
+- Sabun Dhital  
+
+University of South Dakota – DSCI 723 Spring 2025  
+Instructor: Dr. Hanus
